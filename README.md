@@ -131,13 +131,13 @@ pip install -r requirements.txt
 ### Linux/Ubuntu
 
 ```bash
-python3 agrupar_midias_gps.py -i /home/carlos/Downloads/ilheus/ -o completo -d 300
+python3 agrupar_midias_gps.py -i /caminho/para/midias -o midias_agrupadas -d 300
 ```
 
 ### Windows
 
 ```powershell
-python agrupar_midias_gps.py -i "C:\Users\Carlos\Downloads\ilheus" -o "completo" -d 300
+python agrupar_midias_gps.py -i "C:\caminho\para\midias" -o "midias_agrupadas" -d 300
 ```
 
 ---
