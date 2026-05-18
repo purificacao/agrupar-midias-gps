@@ -155,7 +155,7 @@ python agrupar_midias_gps.py -i "C:\caminho\para\midias" -o "midias_agrupadas" -
 Exemplo movendo arquivos:
 
 ```bash
-python3 agrupar_midias_gps.py -i /home/carlos/Downloads/ilheus/ -o completo -d 300 --mover
+python3 agrupar_midias_gps.py -i /caminho/para/midias -o completo -d 300 --mover
 ```
 
 Atenção: `--mover` remove os arquivos da pasta original e transfere para a pasta de saída.
