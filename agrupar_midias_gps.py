@@ -340,6 +340,37 @@ def salvar_agrupamentos(df, pasta_saida, mover=False):
             shutil.copy2(str(origem), str(destino))
 
 
+def salvar_midias_sem_gps(lista_sem_gps, pasta_saida, mover=False):
+    """
+    Copia ou move as mídias sem GPS para a subpasta 'midias_sem_gps'.
+    """
+    if not lista_sem_gps:
+        return
+
+    pasta_sem_gps = pasta_saida / "midias_sem_gps"
+    pasta_sem_gps.mkdir(parents=True, exist_ok=True)
+
+    acao = "Movendo mídias sem GPS" if mover else "Copiando mídias sem GPS"
+
+    for idx, arquivo in enumerate(tqdm(lista_sem_gps, desc=acao)):
+        origem = Path(arquivo)
+        destino = pasta_sem_gps / origem.name
+
+        # Evita sobrescrever arquivos com mesmo nome
+        if destino.exists():
+            destino = pasta_sem_gps / f"{origem.stem}_{idx}{origem.suffix}"
+
+        try:
+            if mover:
+                shutil.move(str(origem), str(destino))
+            else:
+                shutil.copy2(str(origem), str(destino))
+
+        except Exception as e:
+            print(f"[ERRO] Falha ao processar mídia sem GPS: {origem}")
+            print(f"       Motivo: {e}")
+
+
 # ============================================================
 # FUNÇÃO PRINCIPAL
 # ============================================================
@@ -406,16 +437,16 @@ def main():
     pasta_saida.mkdir(parents=True, exist_ok=True)
 
     if sem_gps:
-        sem_gps_path = pasta_saida / "midias_sem_gps.txt"
-
-        with open(sem_gps_path, "w", encoding="utf-8") as f:
-            for item in sem_gps:
-                f.write(item + "\n")
-
+        salvar_midias_sem_gps(
+            lista_sem_gps=sem_gps,
+            pasta_saida=pasta_saida,
+            mover=mover_arquivos
+        )
     if not registros:
         print("[AVISO] Nenhuma mídia com GPS foi encontrada.")
         print(f"Total de mídias analisadas: {len(arquivos)}")
-        print(f"Lista de mídias sem GPS salva em: {sem_gps_path}")
+        print(f"Total de mídias sem GPS: {len(sem_gps)}")
+        print(f"Mídias sem GPS salvas em: {pasta_saida / 'midias_sem_gps'}")
         return
 
     df = pd.DataFrame(registros)
@@ -451,7 +482,7 @@ def main():
     print(f"Relatório CSV salvo em: {relatorio}")
 
     if sem_gps:
-        print(f"Lista de mídias sem GPS salva em: {sem_gps_path}")
+        print(f"Mídias sem GPS salvas em: {pasta_saida / 'midias_sem_gps'}")
 
 
 if __name__ == "__main__":
