@@ -187,7 +187,7 @@ def limpar_numero(valor):
         return None
 
 
-def extrair_de_location_string(location):
+def extrair_de_localizacao_string(location):
     """
     Extrai latitude e longitude de strings comuns em vídeos,
     principalmente metadados QuickTime.
@@ -264,7 +264,7 @@ def extrair_gps(metadados):
     for campo in campos_possiveis:
         valor = metadados.get(campo)
 
-        gps = extrair_de_location_string(valor)
+        gps = extrair_de_localizacao_string(valor)
 
         if gps is not None:
             return gps
