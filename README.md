@@ -188,7 +188,7 @@ completo/
 │   ├── IMG_SEM_GPS.jpg
 │   └── VIDEO_SEM_GPS.mp4
 └── relatorio_agrupamento_gps.csv
-
+```
 O relatório `relatorio_agrupamento_gps.csv` contém:
 
 ```text
